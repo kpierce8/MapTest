@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="HRCDSilverlightApp.MainPage"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+		mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="480">
+	<Grid x:Name="LayoutRoot">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="640"/>
+            <ColumnDefinition Width="160"/>
+        </Grid.ColumnDefinitions>
+        <telerik:RadMap Height="480"  Width="640"
+                        HorizontalAlignment="Left" Name="radMap1" 
+                        ZoomLevel="7"
+                        Center="48, -122"
+                        VerticalAlignment="Top"
+                        Grid.Column="0">
+            <telerik:RadMap.Provider>
+                <telerik:EmptyProvider/>
+            </telerik:RadMap.Provider>
+            <telerik:InformationLayer x:Name="pugetSound">
+                <telerik:InformationLayer.Reader >
+                    <telerik:MapShapeReader x:Name="myReader"     
+                                            ToolTipFormat="WRIA_NM"/>
+                </telerik:InformationLayer.Reader>
+                <telerik:InformationLayer.ShapeFill>
+                    <telerik:MapShapeFill Fill="Bisque" Stroke="Black"/>
+                </telerik:InformationLayer.ShapeFill>
+                <telerik:InformationLayer.HighlightFill>
+                    <telerik:MapShapeFill Fill="Aquamarine" Stroke="CadetBlue" StrokeThickness="2"/>
+                </telerik:InformationLayer.HighlightFill>
+                
+            </telerik:InformationLayer>
+        </telerik:RadMap>
+        <StackPanel Background="LimeGreen" Grid.Column="1">
+            <StackPanel Orientation="Horizontal">
+            <TextBlock> Hectares: </TextBlock>
+                <TextBlock Name="selHectares" Text="{Binding ElementName=pugetSound.Items/}"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>
