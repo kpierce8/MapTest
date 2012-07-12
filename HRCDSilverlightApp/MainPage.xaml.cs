@@ -52,18 +52,54 @@ namespace HRCDSilverlightApp
 
         void myReader_PreviewReadCompleted(object sender, Telerik.Windows.Controls.Map.PreviewReadShapesCompletedEventArgs eventArgs)
         {
+
+
+           // InformationLayer layer = (sender as MapShapeReader).Layer;
+
+            // extract the seat colorization information from the data attributes
+            //foreach (MapShape shape in layer.Items)
+            //{
+            //   // byte red = byte.Parse(shape.ExtendedData.GetValue("RGB0").ToString(), CultureInfo.InvariantCulture);
+            //   // byte green = byte.Parse(shape.ExtendedData.GetValue("RGB1").ToString(), CultureInfo.InvariantCulture);
+            //   // byte blue = byte.Parse(shape.ExtendedData.GetValue("RGB2").ToString(), CultureInfo.InvariantCulture);
+
+            //   // shape.Fill = new SolidColorBrush(Color.FromArgb(255, red, green, blue));
+            //    shape.MouseLeftButtonDown += new MouseButtonEventHandler(shape_MouseLeftButtonDown);
+            //}
+
+
             foreach (var poly in eventArgs.Items)
             {
-                if (poly is MapPolygon)
+                if (poly is MapShape)
                 {
-                    double myHectares = Convert.ToDouble((poly as MapPolygon).ExtendedData.GetValue("Hectares"));
-                    String myName = Convert.ToString((poly as MapPolygon).ExtendedData.GetValue("WRIA_NM"));
-
+                    double myHectares = Convert.ToDouble((poly as MapShape).ExtendedData.GetValue("Hectares"));
+                    String myName = Convert.ToString((poly as MapShape).ExtendedData.GetValue("WRIA_NM"));
+                    (poly as MapShape).MouseLeftButtonDown += new MouseButtonEventHandler(shape_MouseLeftButtonDown);
+                    (poly as MapShape).MouseEnter += new MouseEventHandler(MainPage_MouseEnter);
                     ShapeData temp = new ShapeData() { Hectares = myHectares, WriaName = myName };
                     shapeData.Add(temp);
-
+                    
                 }
             }
+        }
+
+        void MainPage_MouseEnter(object sender, MouseEventArgs e)
+        {
+            MapShape shape = sender as MapShape;
+            string sector = shape.ExtendedData.GetValue("WRIA_NM").ToString();
+
+            selName.Text = sector;
+        }
+
+        void shape_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            MapShape shape = sender as MapShape;
+            string sector = shape.ExtendedData.GetValue("Hectares").ToString();
+
+            selHectares.Text = sector;
+
+           // this.StartTransitionAnimation();
+           // (this.Resources["DataContext"] as ExampleViewModel).UpdateViewModel(sector);
         }
 
 

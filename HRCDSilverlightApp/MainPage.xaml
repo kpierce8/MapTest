@@ -5,14 +5,19 @@
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
 		mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="480">
-	<Grid x:Name="LayoutRoot">
+	<Grid x:Name="LayoutRoot" Width="800">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="640"/>
-            <ColumnDefinition Width="160"/>
+            <ColumnDefinition Width="150"/>
         </Grid.ColumnDefinitions>
-        <telerik:RadMap Height="480"  Width="640"
+        <telerik:RadMap Height="480"  Width="630"
                         HorizontalAlignment="Left" Name="radMap1" 
                         ZoomLevel="7"
+                        MouseClickMode="None"
+                        MouseDoubleClickMode="None"
+                        MiniMapExpanderVisibility="Collapsed"
+                        MiniMapHeight="0"
+                        MiniMapWidth="0"
                         Center="48, -122"
                         VerticalAlignment="Top"
                         Grid.Column="0">
@@ -31,12 +36,18 @@
                     <telerik:MapShapeFill Fill="Aquamarine" Stroke="CadetBlue" StrokeThickness="2"/>
                 </telerik:InformationLayer.HighlightFill>
                 
+               
+
             </telerik:InformationLayer>
         </telerik:RadMap>
-        <StackPanel Background="LimeGreen" Grid.Column="1">
-            <StackPanel Orientation="Horizontal">
-            <TextBlock> Hectares: </TextBlock>
-                <TextBlock Name="selHectares" Text="{Binding ElementName=pugetSound.Items/}"/>
+        <StackPanel Background="LimeGreen" Grid.Column="1" Width="140" VerticalAlignment="Top" Height="480" Margin="0">
+            <StackPanel Orientation="Horizontal" Width="130">
+            <TextBlock> Name: </TextBlock>
+                <TextBlock Name="selName"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Width="130">
+                <TextBlock> Hectares:</TextBlock>
+                <TextBlock Name="selHectares"/>
             </StackPanel>
         </StackPanel>
     </Grid>
